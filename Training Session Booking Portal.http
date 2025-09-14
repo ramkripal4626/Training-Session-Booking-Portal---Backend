@@ -1,0 +1,6 @@
+@Training_Session_Booking_Portal_HostAddress = http://localhost:5073
+
+GET {{Training_Session_Booking_Portal_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
