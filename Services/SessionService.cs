@@ -31,14 +31,33 @@ namespace Training_Session_Booking_Portal.Services
                 TrainerId = s.TrainerId,
                 TrainerName = s.Trainer != null
                     ? $"{s.Trainer.FirstName} {s.Trainer.LastName}"
-                    : "Unknown"
+                    : "Unknown",
+                MeetingLink = s.MeetingLink
             }).ToList();
         }
 
-        public async Task<Session?> GetSessionByIdAsync(int sessionId)
+        public async Task<SessionResponseDto?> GetSessionByIdAsync(int sessionId)
         {
-            return await _repository.GetSessionByIdAsync(sessionId);
+            var session = await _repository.GetSessionByIdAsync(sessionId);
+            if (session == null) return null;
+
+            return new SessionResponseDto
+            {
+                SessionId = session.SessionId,
+                Title = session.Title,
+                Description = session.Description,
+                StartTime = session.StartTime,
+                EndTime = session.EndTime,
+                Capacity = session.Capacity,
+                IsApproved = session.IsApproved,
+                TrainerId = session.TrainerId,
+                TrainerName = session.Trainer != null
+                    ? $"{session.Trainer.FirstName} {session.Trainer.LastName}"
+                    : "Unknown",
+                MeetingLink = session.MeetingLink  // include your new field
+            };
         }
+
 
         public async Task<string> CreateSessionAsync(Session session, ClaimsPrincipal user)
         {
@@ -75,6 +94,7 @@ namespace Training_Session_Booking_Portal.Services
             session.EndTime = dto.EndTime;
             session.Capacity = dto.Capacity;
             session.IsApproved = dto.IsApproved;
+            session.MeetingLink = dto.MeetingLink;
 
             await _repository.UpdateSessionAsync(session);
 

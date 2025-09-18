@@ -11,5 +11,8 @@
         public bool IsApproved { get; set; } // Admin can approve via PUT
         public string? TrainerName { get; set; } // Optional, for display only
 
+        public string? MeetingLink { get; set; }  // <-- add this
+
+
     }
 }

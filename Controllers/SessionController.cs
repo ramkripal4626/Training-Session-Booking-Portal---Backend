@@ -44,7 +44,8 @@ namespace Training_Session_Booking_Portal.Controllers
                 Description = dto.Description,
                 StartTime = dto.StartTime,
                 EndTime = dto.EndTime,
-                Capacity = dto.Capacity
+                Capacity = dto.Capacity,
+                MeetingLink = dto.MeetingLink
             };
 
             var result = await _sessionService.CreateSessionAsync(session, User);
@@ -68,7 +69,7 @@ namespace Training_Session_Booking_Portal.Controllers
             return Ok(new { Message = result });
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Trainer,Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSession(int id)
         {

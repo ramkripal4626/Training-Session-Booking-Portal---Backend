@@ -14,5 +14,8 @@
         public int TrainerId { get; set; }
         public string TrainerName { get; set; } = string.Empty;
 
+        public string? MeetingLink { get; set; }  // <-- add this
+
+
     }
 }

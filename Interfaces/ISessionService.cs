@@ -7,7 +7,7 @@ namespace Training_Session_Booking_Portal.Interfaces
     public interface ISessionService
     {
         Task<List<SessionResponseDto>> GetAllSessionsAsync();
-        Task<Session?> GetSessionByIdAsync(int sessionId);
+        Task<SessionResponseDto> GetSessionByIdAsync(int sessionId);
 
         // Trainer creates session (not auto-approved)
         Task<string> CreateSessionAsync(Session session, ClaimsPrincipal user);

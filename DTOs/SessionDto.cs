@@ -11,6 +11,9 @@
         public bool IsApproved { get; set; }
         public string? TrainerName { get; set; }  // flatten trainer info
 
+        public string? MeetingLink { get; set; }  // <-- add this
+
+
 
     }
 }
