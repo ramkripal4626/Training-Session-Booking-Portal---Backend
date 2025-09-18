@@ -44,8 +44,9 @@ namespace Training_Session_Booking_Portal.Controllers
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
             var bookings = await _userService.GetMySessionsAsync(userId);
-            return Ok(bookings);
+            return Ok(bookings); 
         }
+
 
         [HttpDelete("withdraw/{sessionId}")]
         public async Task<IActionResult> WithdrawFromSession(int sessionId)
