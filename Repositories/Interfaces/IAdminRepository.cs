@@ -16,6 +16,11 @@ namespace Training_Session_Booking_Portal.Repositories.Interfaces
         Task UpdateUserAsync(User user);
         Task DeleteTrainerAsync(User trainer);
 
+        Task<int> GetPendingSessionsCountAsync();
+        Task<int> GetApprovedSessionsCountAsync();
+        Task<int> GetTrainersCountAsync();
+
+
 
     }
 }

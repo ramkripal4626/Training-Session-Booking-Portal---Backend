@@ -64,5 +64,21 @@ namespace Training_Session_Booking_Portal.Repositories
             _context.Users.Remove(trainer);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<int> GetPendingSessionsCountAsync()
+        {
+            return await _context.Sessions.CountAsync(s => !s.IsApproved);
+        }
+
+        public async Task<int> GetApprovedSessionsCountAsync()
+        {
+            return await _context.Sessions.CountAsync(s => s.IsApproved);
+        }
+
+        public async Task<int> GetTrainersCountAsync()
+        {
+            return await _context.Users.CountAsync(u => u.RoleId == 2); // Assuming RoleId=2 is Trainer
+        }
+
     }
 }

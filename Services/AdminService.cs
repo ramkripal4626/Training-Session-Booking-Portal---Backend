@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Training_Session_Booking_Portal.DTOs;
@@ -17,8 +18,32 @@ namespace Training_Session_Booking_Portal.Services
             _repo = repo;
         }
 
-        public async Task<IEnumerable<Session>> GetPendingSessionsAsync() =>
-            await _repo.GetPendingSessionsAsync();
+        public async Task<List<SessionResponseDto>> GetPendingSessionsAsync()
+        {
+            // Fetch sessions with Status = Pending
+            var sessions = await _repo.GetPendingSessionsAsync();
+
+            // Map to SessionResponseDto
+            var result = sessions.Select(s => new SessionResponseDto
+            {
+                SessionId = s.SessionId,
+                Title = s.Title,
+                Description = s.Description,
+                StartTime = s.StartTime,
+                EndTime = s.EndTime,
+                Capacity = s.Capacity,
+                IsApproved = s.IsApproved,
+                TrainerId = s.TrainerId,
+                TrainerName = s.Trainer != null
+                    ? $"{s.Trainer.FirstName} {s.Trainer.LastName}"
+                    : "Unknown",
+                MeetingLink = s.MeetingLink
+
+            }).ToList();
+
+            return result;
+        }
+
 
         public async Task<bool> ApproveSessionAsync(int id)
         {
@@ -76,6 +101,22 @@ namespace Training_Session_Booking_Portal.Services
             await _repo.DeleteTrainerAsync(trainer);
             return true;
         }
+
+        public async Task<int> GetPendingSessionsCountAsync()
+        {
+            return (await _repo.GetPendingSessionsAsync()).Count();
+        }
+
+        public async Task<int> GetApprovedSessionsCountAsync()
+        {
+            return await _repo.GetApprovedSessionsCountAsync();
+        }
+
+        public async Task<int> GetTrainersCountAsync()
+        {
+            return await _repo.GetTrainersCountAsync();
+        }
+
 
         private string HashPassword(string password)
         {

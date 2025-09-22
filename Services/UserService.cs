@@ -27,7 +27,7 @@ namespace Training_Session_Booking_Portal.Services
                 EndTime = s.EndTime,
                 Capacity = s.Capacity,
                 IsApproved = s.IsApproved,
-                MeetingLink = s.MeetingLink, // ✅ new field
+                MeetingLink = s.MeetingLink, 
                 TrainerName = s.Trainer != null
                     ? $"{s.Trainer.FirstName} {s.Trainer.LastName}"
                     : "Unknown"

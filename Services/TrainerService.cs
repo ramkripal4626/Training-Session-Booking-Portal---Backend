@@ -2,6 +2,7 @@
 using Training_Session_Booking_Portal.Interfaces;
 using Training_Session_Booking_Portal.Models;
 using Training_Session_Booking_Portal.Repositories.Interfaces;
+using Training_Session_Booking_Portal.Services;
 
 namespace Training_Session_Booking_Portal.Services
 {

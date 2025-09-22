@@ -5,7 +5,7 @@ namespace Training_Session_Booking_Portal.Interfaces
 {
     public interface IAdminService
     {
-        Task<IEnumerable<Session>> GetPendingSessionsAsync();
+        Task<List<SessionResponseDto>> GetPendingSessionsAsync();
         Task<bool> ApproveSessionAsync(int id);
         Task<bool> RejectSessionAsync(int id);
 
@@ -13,6 +13,11 @@ namespace Training_Session_Booking_Portal.Interfaces
 
         Task<bool> PromoteUserToTrainerAsync(int userId);
         Task<bool> DeleteTrainerAsync(int id);
+
+        Task<int> GetPendingSessionsCountAsync();
+        Task<int> GetApprovedSessionsCountAsync();
+        Task<int> GetTrainersCountAsync();
+
 
 
     }

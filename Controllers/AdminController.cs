@@ -6,7 +6,7 @@ using Training_Session_Booking_Portal.Models;
 
 namespace Training_Session_Booking_Portal.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/[controller]")]
     public class AdminController : ControllerBase
@@ -59,5 +59,25 @@ namespace Training_Session_Booking_Portal.Controllers
             var success = await _service.DeleteTrainerAsync(id);
             return success ? Ok(new { Message = "Trainer deleted." }) : NotFound("Trainer not found.");
         }
+        [HttpGet("pending-sessions-count")]
+        public async Task<IActionResult> GetPendingSessionsCount()
+        {
+            var count = await _service.GetPendingSessionsCountAsync();
+            return Ok(count);
+        }
+        [HttpGet("approved-sessions-count")]
+        public async Task<IActionResult> GetApprovedSessionsCount()
+        {
+            var count = await _service.GetApprovedSessionsCountAsync();
+            return Ok(count);
+        }
+
+        [HttpGet("trainers-count")]
+        public async Task<IActionResult> GetTrainersCount()
+        {
+            var count = await _service.GetTrainersCountAsync();
+            return Ok(count);
+        }
+
     }
 }
